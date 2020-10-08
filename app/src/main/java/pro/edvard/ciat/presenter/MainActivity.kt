@@ -1,10 +1,11 @@
-package pro.edvard.ciat
+package pro.edvard.ciat.presenter
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import dagger.hilt.android.AndroidEntryPoint
+import pro.edvard.ciat.R
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
