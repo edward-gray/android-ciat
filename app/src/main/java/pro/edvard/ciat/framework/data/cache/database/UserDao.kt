@@ -1,5 +1,6 @@
 package pro.edvard.ciat.framework.data.cache.database
 
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -8,6 +9,9 @@ import pro.edvard.ciat.framework.data.cache.model.UserCacheEntity
 
 @Dao
 interface UserDao {
+
+    @Query("SELECT * FROM users")
+    fun findAll(): PagingSource<Int, UserCacheEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun save(userCacheEntity: UserCacheEntity): Long

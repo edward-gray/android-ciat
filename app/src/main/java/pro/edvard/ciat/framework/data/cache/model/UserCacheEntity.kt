@@ -21,6 +21,5 @@ data class UserCacheEntity(
     var lastName: String,
 
     @ColumnInfo(name = "avatar")
-    var avatar: String,
-
+    var avatar: String
 )
