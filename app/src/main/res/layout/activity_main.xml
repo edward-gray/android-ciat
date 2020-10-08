@@ -13,7 +13,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:name="pro.edvard.ciat.presenter.common.MainNavHostFragment"
+        android:name="pro.edvard.ciat.framework.presenter.common.MainNavHostFragment"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph"
         android:id="@+id/main_container"

@@ -1,4 +1,4 @@
-package pro.edvard.ciat.presenter.adapter
+package pro.edvard.ciat.framework.presenter.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.paging.PagingDataAdapter
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.item_user_row.view.*
 import pro.edvard.ciat.R
-import pro.edvard.ciat.model.User
+import pro.edvard.ciat.business.domain.model.User
 
 class UserRowAdapter(
     private val context: Context,
@@ -52,24 +51,10 @@ class UserRowAdapter(
                 listener.onItemClick(position)
             }
         }
-
     }
 
     interface OnItemClickListener {
         fun onItemClick(position: Int)
     }
 
-}
-
-class UserDiffUtilCallBack : DiffUtil.ItemCallback<User>() {
-    override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
-        return oldItem.id == newItem.id
-    }
-
-    override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
-        return oldItem.id == newItem.id
-                && oldItem.getFullName() == newItem.getFullName()
-                && oldItem.email == newItem.email
-                && oldItem.avatar == newItem.avatar
-    }
 }

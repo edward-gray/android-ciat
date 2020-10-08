@@ -1,4 +1,4 @@
-package pro.edvard.ciat.presenter.common
+package pro.edvard.ciat.framework.presenter.common
 
 import android.content.Context
 import androidx.navigation.fragment.NavHostFragment

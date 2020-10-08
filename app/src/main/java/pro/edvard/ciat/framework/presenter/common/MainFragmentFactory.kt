@@ -1,4 +1,4 @@
-package pro.edvard.ciat.presenter.common
+package pro.edvard.ciat.framework.presenter.common
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentFactory

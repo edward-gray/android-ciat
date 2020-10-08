@@ -1,4 +1,4 @@
-package pro.edvard.ciat.presenter
+package pro.edvard.ciat.framework.presenter
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

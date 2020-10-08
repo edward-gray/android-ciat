@@ -1,6 +1,6 @@
 @file:Suppress("DEPRECATION", "NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 
-package pro.edvard.ciat.util
+package pro.edvard.ciat.framework.presenter.common
 
 import android.annotation.TargetApi
 import android.content.BroadcastReceiver
