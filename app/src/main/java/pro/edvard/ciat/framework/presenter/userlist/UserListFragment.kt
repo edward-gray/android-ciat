@@ -22,6 +22,16 @@ class UserListFragment : Fragment(R.layout.fragment_user_list), UserRowAdapter.O
         super.onViewCreated(view, savedInstanceState)
         navController = Navigation.findNavController(view)
         setupAdapter()
+        test()
+    }
+
+    private fun test() {
+        viewModel.getReqres()
+        viewModel.reqres.observe(viewLifecycleOwner) {
+            it.users.map { user ->
+                println("DEBUG: $user")
+            }
+        }
     }
 
     private fun setupAdapter() {

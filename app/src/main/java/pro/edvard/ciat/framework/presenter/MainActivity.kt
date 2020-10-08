@@ -20,4 +20,5 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.main_container) as NavHostFragment? ?: return
         navController = host.navController
     }
+
 }
