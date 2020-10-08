@@ -21,6 +21,10 @@ class UserDaoServiceImpl(
         return userDao.findById(id)
     }
 
+    override suspend fun count(): Int {
+        return userDao.count()
+    }
+
     override suspend fun reset() {
         userDao.reset()
     }

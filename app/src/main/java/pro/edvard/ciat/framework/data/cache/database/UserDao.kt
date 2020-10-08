@@ -19,6 +19,9 @@ interface UserDao {
     @Query("SELECT * FROM users WHERE id = :id")
     suspend fun findById(id: Int): UserCacheEntity?
 
+    @Query("SELECT COUNT(*) FROM users")
+    suspend fun count(): Int
+
     @Query("DELETE FROM users")
     suspend fun reset()
 

@@ -26,8 +26,8 @@ constructor(
 
     val users: Flow<PagingData<User>> = Pager(
         config = PagingConfig(
-            pageSize = 6,
-            enablePlaceholders = false
+            pageSize = 12,
+            enablePlaceholders = true
         ),
         remoteMediator = UserRemoteMediator(userDaoService, reqresService, userCacheMapper),
         pagingSourceFactory = { UserPagingSource(reqresService) }

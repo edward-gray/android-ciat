@@ -19,10 +19,16 @@ class UserRemoteMediator(
 ) : RemoteMediator<Int, User>() {
 
     override suspend fun load(loadType: LoadType, state: PagingState<Int, User>): MediatorResult {
-
         try {
             val page = when (loadType) {
-                LoadType.APPEND -> null
+                LoadType.APPEND -> {
+                    val rowsInCache = userDaoService.count()
+                    if (rowsInCache > 0) {
+                        (rowsInCache / 6) + 1
+                    } else {
+                        null
+                    }
+                }
                 LoadType.PREPEND -> return MediatorResult.Success(true)
                 LoadType.REFRESH -> null
                 else -> null

@@ -11,6 +11,8 @@ interface UserDaoService {
 
     suspend fun findById(id: Int): UserCacheEntity?
 
+    suspend fun count(): Int
+
     suspend fun reset()
 
 }

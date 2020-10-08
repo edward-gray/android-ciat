@@ -48,13 +48,13 @@ class UserRowAdapter(
         override fun onClick(v: View?) {
             val position = absoluteAdapterPosition
             if (position != RecyclerView.NO_POSITION) {
-                listener.onItemClick(position)
+                listener.onItemClick(getItem(position)!!)
             }
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick(position: Int)
+        fun onItemClick(item: User)
     }
 
 }
