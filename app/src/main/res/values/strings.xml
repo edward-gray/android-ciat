@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Ciat</string>
+    <string name="splash_website">www.ciatcorp.com</string>
+    <string name="splash_edvard_grei">by Edvard Grei</string>
+
+    <string name="test_full_name">Michael Lawson</string>
+    <string name="test_email">michael.lawson@reqres.in</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
