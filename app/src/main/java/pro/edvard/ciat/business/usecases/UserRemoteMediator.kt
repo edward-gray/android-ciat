@@ -5,25 +5,26 @@ import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
 import pro.edvard.ciat.business.domain.model.User
-import pro.edvard.ciat.business.usecases.UserPagingSource.Companion.REQRES_STARTING_PAGE_INDEX
 import pro.edvard.ciat.framework.data.cache.abstraction.UserDaoService
 import pro.edvard.ciat.framework.data.cache.abstraction.UserRemoteKeyDaoService
-import pro.edvard.ciat.framework.data.cache.database.CiatDatabase
-import pro.edvard.ciat.framework.data.cache.mapper.UserCacheMapper
 import pro.edvard.ciat.framework.data.cache.model.UserRemoteKeys
 import pro.edvard.ciat.framework.data.network.abstraction.ReqresService
 import pro.edvard.ciat.framework.data.network.util.NetworkResponse
 import java.io.IOException
 import java.io.InvalidObjectException
 
-@ExperimentalPagingApi
+@OptIn(ExperimentalPagingApi::class)
 class UserRemoteMediator(
     private val userDaoService: UserDaoService,
     private val reqresService: ReqresService,
-    private val userRemoteKeyDaoService: UserRemoteKeyDaoService,
-    private val userCacheMapper: UserCacheMapper
+    private val userRemoteKeyDaoService: UserRemoteKeyDaoService
 ) : RemoteMediator<Int, User>() {
 
+    companion object {
+        const val REQRES_STARTING_PAGE_INDEX = 1
+    }
+
+    @OptIn(ExperimentalPagingApi::class)
     override suspend fun load(loadType: LoadType, state: PagingState<Int, User>): MediatorResult {
         try {
             val page = when (loadType) {
@@ -50,7 +51,7 @@ class UserRemoteMediator(
             }
 
             // getting data from network
-            val users: List<User> = reqresService.getUsers(page ?: 1).let { response ->
+            val users: List<User> = reqresService.getUsers(page).let { response ->
                 when (response) {
                     is NetworkResponse.Success -> {
                         val users = response.body.users
@@ -65,13 +66,6 @@ class UserRemoteMediator(
             // checking if users empty
             val endOfPaginationReached = users.isEmpty()
 
-            // saving data to cache
-            if (loadType == LoadType.REFRESH) {
-                // resetting data in cache
-                userRemoteKeyDaoService.reset()
-                userDaoService.reset()
-            }
-
             // saving users remote keys to cache
             val prevKey = if (page == REQRES_STARTING_PAGE_INDEX) null else page - 1
             val nextKey = if (endOfPaginationReached) null else page + 1
@@ -81,10 +75,7 @@ class UserRemoteMediator(
             userRemoteKeyDaoService.saveAll(userKeys)
 
             // saving users to cache
-            val usersAsCacheEntities = users.map {
-                userCacheMapper.mapToEntity(it)
-            }
-            userDaoService.saveAll(usersAsCacheEntities)
+            userDaoService.saveAll(users)
 
             // just return Mediator
             return MediatorResult.Success(
@@ -94,8 +85,6 @@ class UserRemoteMediator(
         } catch (e: IOException) {
             return MediatorResult.Error(e)
         }
-
-
     }
 
     private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, User>): UserRemoteKeys? {

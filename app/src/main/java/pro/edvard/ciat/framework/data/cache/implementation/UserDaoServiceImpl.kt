@@ -1,27 +1,26 @@
 package pro.edvard.ciat.framework.data.cache.implementation
 
 import androidx.paging.PagingSource
+import pro.edvard.ciat.business.domain.model.User
 import pro.edvard.ciat.framework.data.cache.abstraction.UserDaoService
 import pro.edvard.ciat.framework.data.cache.database.UserDao
-import pro.edvard.ciat.framework.data.cache.model.UserCacheEntity
 
 class UserDaoServiceImpl(
     private val userDao: UserDao
 ): UserDaoService {
-
-    override suspend fun saveAll(userCacheEntityList: List<UserCacheEntity>) {
-        return userDao.saveAll(userCacheEntityList)
+    override suspend fun saveAll(users: List<User>) {
+        return userDao.saveAll(users)
     }
 
-    override suspend fun findAll(): PagingSource<Int, UserCacheEntity> {
+    override fun findAll(): PagingSource<Int, User> {
         return userDao.findAll()
     }
 
-    override suspend fun save(userCacheEntity: UserCacheEntity): Long {
-       return userDao.save(userCacheEntity)
+    override suspend fun save(user: User): Long {
+        return userDao.save(user)
     }
 
-    override suspend fun findById(id: Int): UserCacheEntity? {
+    override suspend fun findById(id: Int): User? {
         return userDao.findById(id)
     }
 
@@ -30,7 +29,8 @@ class UserDaoServiceImpl(
     }
 
     override suspend fun reset() {
-        userDao.reset()
+        return userDao.reset()
     }
+
 
 }

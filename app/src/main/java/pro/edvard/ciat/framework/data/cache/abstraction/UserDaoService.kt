@@ -1,17 +1,17 @@
 package pro.edvard.ciat.framework.data.cache.abstraction
 
 import androidx.paging.PagingSource
-import pro.edvard.ciat.framework.data.cache.model.UserCacheEntity
+import pro.edvard.ciat.business.domain.model.User
 
 interface UserDaoService {
 
-    suspend fun saveAll(userCacheEntityList: List<UserCacheEntity>)
+    suspend fun saveAll(users: List<User>)
 
-    suspend fun findAll(): PagingSource<Int, UserCacheEntity>
+    fun findAll(): PagingSource<Int, User>
 
-    suspend fun save(userCacheEntity: UserCacheEntity): Long
+    suspend fun save(user: User): Long
 
-    suspend fun findById(id: Int): UserCacheEntity?
+    suspend fun findById(id: Int): User?
 
     suspend fun count(): Int
 
