@@ -5,6 +5,8 @@ import pro.edvard.ciat.framework.data.cache.model.UserCacheEntity
 
 interface UserDaoService {
 
+    suspend fun saveAll(userCacheEntityList: List<UserCacheEntity>)
+
     suspend fun findAll(): PagingSource<Int, UserCacheEntity>
 
     suspend fun save(userCacheEntity: UserCacheEntity): Long

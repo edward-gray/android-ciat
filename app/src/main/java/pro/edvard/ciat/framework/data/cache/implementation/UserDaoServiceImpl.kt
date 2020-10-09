@@ -9,6 +9,10 @@ class UserDaoServiceImpl(
     private val userDao: UserDao
 ): UserDaoService {
 
+    override suspend fun saveAll(userCacheEntityList: List<UserCacheEntity>) {
+        return userDao.saveAll(userCacheEntityList)
+    }
+
     override suspend fun findAll(): PagingSource<Int, UserCacheEntity> {
         return userDao.findAll()
     }

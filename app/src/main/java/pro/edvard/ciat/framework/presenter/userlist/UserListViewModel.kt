@@ -11,6 +11,7 @@ import pro.edvard.ciat.business.domain.model.User
 import pro.edvard.ciat.business.usecases.UserPagingSource
 import pro.edvard.ciat.business.usecases.UserRemoteMediator
 import pro.edvard.ciat.framework.data.cache.abstraction.UserDaoService
+import pro.edvard.ciat.framework.data.cache.abstraction.UserRemoteKeyDaoService
 import pro.edvard.ciat.framework.data.cache.mapper.UserCacheMapper
 import pro.edvard.ciat.framework.data.network.abstraction.ReqresService
 
@@ -21,15 +22,21 @@ constructor(
     private val userDaoService: UserDaoService,
     private val reqresService: ReqresService,
     private val userCacheMapper: UserCacheMapper,
+    private val userRemoteKeyDaoService: UserRemoteKeyDaoService,
     @Assisted private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     val users: Flow<PagingData<User>> = Pager(
         config = PagingConfig(
-            pageSize = 12,
+            pageSize = 6,
             enablePlaceholders = true
         ),
-        remoteMediator = UserRemoteMediator(userDaoService, reqresService, userCacheMapper),
+        remoteMediator = UserRemoteMediator(
+            userDaoService,
+            reqresService,
+            userRemoteKeyDaoService,
+            userCacheMapper
+        ),
         pagingSourceFactory = { UserPagingSource(reqresService) }
     ).flow.cachedIn(viewModelScope)
 

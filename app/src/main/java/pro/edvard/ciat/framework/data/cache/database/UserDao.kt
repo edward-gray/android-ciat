@@ -10,6 +10,9 @@ import pro.edvard.ciat.framework.data.cache.model.UserCacheEntity
 @Dao
 interface UserDao {
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun saveAll(userCacheEntityList: List<UserCacheEntity>)
+
     @Query("SELECT * FROM users")
     fun findAll(): PagingSource<Int, UserCacheEntity>
 
