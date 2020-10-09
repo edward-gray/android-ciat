@@ -1,4 +1,4 @@
-package pro.edvard.ciat.business.usecases
+package pro.edvard.ciat.framework.data.paging
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType

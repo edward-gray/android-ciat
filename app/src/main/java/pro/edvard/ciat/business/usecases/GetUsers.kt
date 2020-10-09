@@ -8,6 +8,7 @@ import pro.edvard.ciat.business.domain.model.User
 import pro.edvard.ciat.framework.data.cache.abstraction.UserDaoService
 import pro.edvard.ciat.framework.data.cache.abstraction.UserRemoteKeyDaoService
 import pro.edvard.ciat.framework.data.network.abstraction.ReqresService
+import pro.edvard.ciat.framework.data.paging.UserRemoteMediator
 
 class GetUsers(
     private val userDaoService: UserDaoService,
