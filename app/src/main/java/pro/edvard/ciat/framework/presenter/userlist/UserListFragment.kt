@@ -26,6 +26,7 @@ class UserListFragment : Fragment(R.layout.fragment_user_list), UserRowAdapter.O
     private lateinit var navController: NavController
     private lateinit var userRowAdapter: UserRowAdapter
     private lateinit var networkConnection: NetworkConnection
+    private var network: Boolean? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -38,6 +39,7 @@ class UserListFragment : Fragment(R.layout.fragment_user_list), UserRowAdapter.O
         setupAdapter()
         submitUsers()
         handleNetworkConnection()
+        handleSwipeRefresh()
     }
 
     private fun setupAdapter() {
@@ -59,8 +61,27 @@ class UserListFragment : Fragment(R.layout.fragment_user_list), UserRowAdapter.O
         navController.navigate(R.id.action_userListFragment_to_userDetailFragment, bundle)
     }
 
+    private fun handleSwipeRefresh() {
+        userlist_swipeRefreshLayout.setOnRefreshListener {
+            if (network == null || network == false) {
+                Toast.makeText(
+                    requireContext(),
+                    "can't refresh without network connection",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                viewModel.refreshUsers()
+                userRowAdapter.notifyDataSetChanged()
+                submitUsers()
+                userRowAdapter.refresh()
+            }
+            userlist_swipeRefreshLayout.isRefreshing = false
+        }
+    }
+
     private fun handleNetworkConnection() {
         networkConnection.observe(viewLifecycleOwner) { networkIsAvailable ->
+            network = networkIsAvailable
             if (networkIsAvailable != null) {
                 if (networkIsAvailable) {
                     userRowAdapter.refresh()
